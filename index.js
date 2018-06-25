@@ -109,15 +109,17 @@ const operator = {
         const preProcs = [
             {
                 type: 'sass',
-                reg: /\.scss$|\.sass$/
+                reg: /\.scss$|\.sass$/,
+                langReg: /lang=(scss|sass)/
             },
             {
                 type: 'less',
-                reg: /\.less$/
+                reg: /\.less$/,
+                langReg: /lang=(less)/
             }
         ];
 
-        const result = preProcs.find( item => item.reg.test(resource));
+        const result = preProcs.find( item => item.reg.test(resource) || item.langReg.test(resource));
         if (result) return result.type;
         throw Error(`Unknown preprocesor type for ${resource}`);
     }
